@@ -75,7 +75,8 @@
 (global-set-key (kbd "C-<delete>") 'delete-forward-word)
 
 
-(require 'desktop)
+;;Begin -- session saving
+ (require 'desktop)
 
 (defun my/in-main-ctx-p ()
   "Check if the current buffer is visiting a file named 'Main.ctx'."
@@ -104,23 +105,53 @@
   (interactive)
   (let ((project-dir (my/project-dir-from-main-ctx)))
     (if project-dir
-        (let* ((session-dir (expand-file-name ".emacs-session/" project-dir))
-               (desktop-file (expand-file-name "desktop" session-dir)))
-          (if (file-exists-p desktop-file)
-              (let ((desktop-dirname session-dir))
-                (desktop-read session-dir)
+        (let ((session-dir (expand-file-name ".emacs-session/" project-dir)))
+          (if (file-directory-p session-dir)
+              (progn
+                (desktop-change-dir session-dir)
                 (message "✅ Session loaded from: %s" session-dir))
-            (message "❌ No saved session found in: %s" session-dir)))
+            (message "❌ No .emacs-session/ directory found in: %s" project-dir)))
       (message "❌ You are not in a 'Main.ctx' file."))))
 
-;; Keybindings
-(global-set-key (kbd "C-c s") #'my/save-session)
-(global-set-key (kbd "C-c l") #'my/load-session)
-
 
 ;; Keybindings
-;;   (global-set-key (kbd "C-c s") 'my/save-project-session)
-   (global-set-key (kbd "C-c 9") 'windmove-right)
+(global-set-key (kbd "C-c S") #'my/save-session)
+(global-set-key (kbd "C-c L") #'my/load-session)
+;;End -- session saving
 
 
+;;Begin -- ConTeXt auto start,stop inserting
+(defun my/expand-start-environment ()
+  "Expand \\startENV to \\startENV\n\n\\stopENV and place point between."
+  (interactive)
+  (let ((line (thing-at-point 'line t)))
+    (when (string-match "^\\\\start\\([A-Za-z]+\\)" line)
+      (let* ((env (match-string 1 line))
+             (stop (format "\\stop%s" env)))
+        (end-of-line)
+        (newline)
+        (insert "\n" stop)
+        (forward-line -1)
+        (indent-according-to-mode)))))
+
+;; Bind it to TAB only when appropriate (optional – see below for smart handling)
+(global-set-key (kbd "C-c t") 'my/expand-start-environment)
+
+(defun my/context-tab-handler ()
+  "Smart TAB for expanding \\startXXX environments."
+  (interactive)
+  (let ((line (thing-at-point 'line t)))
+    (if (string-match "^\\\\start\\([A-Za-z]+\\)\\s-*$" line)
+        (my/expand-start-environment)
+      (indent-for-tab-command))))
+
+;;This ensures the TAB override is only active in plain text modes (including markdown, etc.).
+(add-to-list 'auto-mode-alist '("\\.\\(ctx\\|txt\\|tex\\)\\'" . text-mode))
+(add-hook 'text-mode-hook
+          (lambda ()
+            (local-set-key (kbd "TAB") 'my/context-tab-handler)))
+;;End -- ConTeXt auto start,stop inserting
+
+;; Keybindings
+(global-set-key (kbd "C-c 9") 'windmove-right) ;;use it for ensuring the file is correctly readed until the end
 

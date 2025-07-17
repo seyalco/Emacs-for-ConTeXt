@@ -1,0 +1,137 @@
+system          > 
+system          > ConTeXt  ver: 2025.07.08 17:48 LMTX  fmt: 2025.7.14  int: english/english
+system          > 
+system          > 'cont-new.mkxl' loaded
+open source     > level 1, order 1, name '/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/cont-new.mkxl'
+system          > beware: some patches loaded from cont-new.mkiv
+close source    > level 1, order 1, name '/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/cont-new.mkxl'
+system          > files > jobname './Main', input './Main.ctx', result './Main'
+fonts           > latin modern fonts are not preloaded
+languages       > language 'en' is active
+open source     > level 1, order 2, name './Main.ctx'
+fonts           > preloading latin modern fonts (second stage)
+fonts           > 'fallback modern rm 12pt' is loaded
+pages           > flushing realpage 1, userpage 1, subpage 1
+close source    > level 1, order 2, name './Main.ctx'
+backend         > xmp > using file '/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml'
+system          > start used files
+system          > text: Main
+system          > stop used files
+system          > start used files
+system          >    1: filename=publ-imp-default.lua filetype=lua foundname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/publ-imp-default.lua fullname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/publ-imp-default.lua usedmethod=database
+system          >    2: filename=cont-new.mkxl filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/cont-new.mkxl fullname=/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/cont-new.mkxl usedmethod=database
+system          >    3: filename=lang-exc.lua filetype=lua foundname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/lang-exc.lua fullname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/lang-exc.lua usedmethod=database
+system          >    4: filename=lang-us.lua filetype=lua foundname=/home/seyal/context/tex/texmf-context/tex/context/patterns/mkiv/lang-us.lua fullname=/home/seyal/context/tex/texmf-context/tex/context/patterns/mkiv/lang-us.lua usedmethod=database
+system          >    5: filename=/home/seyal/ConText base/Projects/A channel/Emacs-for-ConTeXt/description/Main.ctx format=tex foundname=/home/seyal/ConText base/Projects/A channel/Emacs-for-ConTeXt/description/Main.ctx fullname=/home/seyal/ConText base/Projects/A channel/Emacs-for-ConTeXt/description/Main.ctx usedmethod=direct
+system          >    6: filename=context-libraries.tma filetype=lua foundname=/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/context-libraries.tma fullname=/home/seyal/context/tex/texmf-context/tex/context/base/mkxl/context-libraries.tma usedmethod=database
+system          >    7: filename=lm.lfg filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/lm.lfg fullname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/lm.lfg usedmethod=database
+system          >    8: filename=lmroman10-regular filetype=otf format=otf foundname=/home/seyal/context/tex/texmf/fonts/data/gust/lm/lmroman10-regular.otf fullname=/home/seyal/context/tex/texmf/fonts/data/gust/lm/lmroman10-regular.otf usedmethod=database
+system          >    9: filename=modern-text.lfg filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/modern-text.lfg fullname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/modern-text.lfg usedmethod=database
+system          >   10: filename=latinmodern-math.otf filetype=otf format=otf foundname=/home/seyal/context/tex/texmf/fonts/data/gust/lm/latinmodern-math.otf fullname=/home/seyal/context/tex/texmf/fonts/data/gust/lm/latinmodern-math.otf usedmethod=database
+system          >   11: filename=modern-math.lfg filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/modern-math.lfg fullname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/modern-math.lfg usedmethod=database
+system          >   12: filename=common-math.lfg filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/common-math.lfg fullname=/home/seyal/context/tex/texmf-context/tex/context/fonts/mkiv/common-math.lfg usedmethod=database
+system          >   13: filename=latinmodernmathcompanion-regular.otf filetype=otf format=otf foundname=/home/seyal/context/tex/texmf/fonts/data/cms/companion/LatinModernMathCompanion-Regular.otf fullname=/home/seyal/context/tex/texmf/fonts/data/cms/companion/LatinModernMathCompanion-Regular.otf usedmethod=database
+system          >   14: filename=lpdf-pdx.xml filetype=tex foundname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml fullname=/home/seyal/context/tex/texmf-context/tex/context/base/mkiv/lpdf-pdx.xml usedmethod=database
+system          > stop used files
+system          > start commandline options
+system          >   currentrun="2"
+system          >   fulljobname="./Main.ctx"
+system          >   input="./Main.ctx"
+system          >   kindofrun="2"
+system          >   maxnofruns="9"
+system          >   texmfbinpath="/home/seyal/context/tex/texmf-linux-64/bin"
+system          > stop commandline options
+system          > start commandline files
+system          >    1: ./Main.ctx
+system          > stop commandline files
+modules         > start used modules
+modules         > stop used modules
+system          > 
+system          > status after finishing run
+system          > 
+system          >   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+system          >           string       pool       hash     lookup       node      token     buffer      input       file       nest  parameter       save       font   language       mark     insert        mvl
+system          >   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+system          >   max    2097152  100000000    2097152    2097152  100000000   10000000  100000000     100000       2000      10000     100000     500000     100000      10000      10000        500        500
+system          >   min     150000   10000000     150000     150000   10000000    2000000    1000000      10000        500       1000      20000     100000        250        250         50         25         10
+system          >   set     500000   10000000     250000     250000   50000000   10000000   10000000     100000       2000      10000     100000     500000     100000        250        250        250         10
+system          >   stp     100000    1000000     100000     100000    5000000    1000000    1000000      10000        250       1000      10000      10000        250        250         50         25         10
+system          > 
+system          >   mem     150000    1011649     150000              10000000    2000000    1000000      10000        500       1000      20000      10000        250        250         50         25         10
+system          >   itm         16          1         16                     9          8          1         32         32         80          4         16          8          8         28         56         80
+system          >   ext          0          0          0          0          0          0          0          0          0          0          0          0    2486344         96          0          0          0
+system          >   all    2400000    1011649    2400000          1   90000000   16000000    1000000     320000      16000      80000      80000     160000    2488344       2096       1400       1400        800
+system          > 
+system          >   ini    2149035     993517          0      51866          0     573414                                                                                       0                                 
+system          >   ptr      52585                  7660      52568                582187          0          0          0          0          0          0          7          0          0         11          0
+system          >   top      52586                938216     262146      14126     584159        173         38          5         12         39        194        250        250         50         25         10
+system          >   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+system          > 
+system          >   current input type    : initial
+system          > 
+system          >   approximate memory    : 118851785 (113 MB)
+system          > 
+system          >   expansion depth       : min: 10000, max: 1000000, set: 10000, top: 5
+system          > 
+system          >   luabytecode registers : 1031
+system          >   luabytecode bytes     : 16512 (0 MB)
+system          >   luastate bytes now    : 47428629 (45 MB)
+system          >   luastate bytes max    : 60460101 (57 MB)
+system          > 
+system          >   file callbacks        : 61
+system          >   saved callbacks       : 83
+system          >   direct callbacks      : 2
+system          >   function callbacks    : 599
+system          >   value callbacks       : 428
+system          >   message callbacks     : 0
+system          >   bytecode callbacks    : 637
+system          > 
+system          >   mp instances          : 0
+system          >   mp estimated memory   : 0 (0 MB)
+system          >   mp file callbacks     : 0
+system          >   mp text callbacks     : 0
+system          >   mp script callbacks   : 0
+system          >   mp log callbacks      : 0
+system          > 
+system          >   total callbacks       : 1810
+system          >   mp total callbacks    : 0
+system          >   backend callbacks     : 0
+system          > 
+system          >   linebreak statistics  : context      calls     first    second     final  passonly   subpass
+system          > 
+system          >   linebreak statistics  : normal           6         6         0         4         0         0
+system          >   linebreak statistics  : vbox             3         3         0         0         0         0
+system          > 
+system          >   linebreak statistics  :                  9         9         0         4         0         0
+system          > 
+system          >   hyphenation state     : checked           8
+system          >   hyphenation state     : exceptions        4
+system          >   hyphenation state     : hyphenated       25
+system          >   hyphenation state     : lists             8
+system          >   hyphenation state     : nothing           4
+system          >   hyphenation state     : words            51
+system          > 
+mkxl run stats  > used config file: selfautoparent:/texmf/web2c/texmfcnf.lua
+mkxl run stats  > used cache path: /home/seyal/context/tex/texmf-cache/luametatex-cache/context/5fe67e0bfe781ce0dde776fb1556f32e
+mkxl run stats  > resource resolver: loadtime 0.008 seconds, 0 scans with scantime 0.000 seconds, 0 shared scans, 14 found files, scanned paths: <none>
+mkxl run stats  > stored bytecode data: 531 modules (0.326 sec), 106 tables (0.033 sec), 637 chunks (0.359 sec)
+mkxl run stats  > traced context lua functions: maxstack: 1874, freed: 0, unreachable: 1874
+mkxl run stats  > cleaned up reserved nodes: 76 nodes, 7 lists of 444
+mkxl run stats  > node memory usage: 9 attribute, 4 fontspec, 1 glue, 135 gluespec, 1 kern, 661 mathspec, 2 penalty, 29 specification, 2 temp
+mkxl run stats  > node list callback tasks: 17 unique task lists, 10 instances (re)created, 62 calls
+mkxl run stats  > used backend: pdf
+mkxl run stats  > randomizer: resumed with value 0.38884170172139643
+mkxl run stats  > jobdata time: 0.001 seconds saving, 0.001 seconds loading
+mkxl run stats  > callbacks: file: 61, saved: 83, direct: 2, function: 599, value: 428, message: 0, bytecode: 637, late 0, total: 1810 (1810 per page)
+mkxl run stats  > loaded patterns: en::1, load time: 0.000
+mkxl run stats  > loaded fonts: 3 files: latinmodernmathcompanion-regular.otf, latinmodern-math.otf, lmroman10-regular.otf
+mkxl run stats  > font engine: otf 3.145, afm 1.541, tfm 1.000, 5 instances, 2 shared in backend, 2 common vectors, 0 common hashes, load time 0.137 seconds 
+mkxl run stats  > math tweaking time: 0.048 seconds, 6 math goodie tables
+mkxl run stats  > font embedding time: 0.002 seconds, 1 fonts
+mkxl run stats  > result saved in file: Main.pdf, compresslevel 1, objectcompresslevel 3, 5 streams, 0 uncompressed, 4 compressed, 1 not compressed, threshold 40
+mkxl run stats  > positions: 4 collected, 0 deltas, 0 shared partials, 0 partial entries
+mkxl run stats  > used platform: linux-64, type: unix, binary subtree: texmf-linux-64
+mkxl run stats  > used engine: luametatex version: 2.11.07, functionality level: 20250708, format id: 722, compiler: gcc
+mkxl run stats  > tex properties: 938216 hash slots used of 2097152, 52568 control sequences, approximate memory usage: 113 MB
+mkxl run stats  > lua properties: engine: lua 5.5, format 7, used memory: 47 MB, ctx: 45 MB, max: 57 MB, symbol mask: utf (τεχ)
+mkxl run stats  > runtime: 0.679 seconds, 1 processed pages, 1 shipped pages, 1.472 pages/second

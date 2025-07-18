@@ -1,0 +1,63 @@
+%b
+\starttext
+this file created in two parts
+1. essentials touturials for using context within emacs
+2. describing how the source code works and why we choose this decisions
+
+the goal of second section is for more easily  develope able source code. 
+
+part 1:
+basic needed command for newbi users(you can simply search and learn it from emacs touturial section we just write it for knowing essentials and not reading all part of it. you can read each of them by clicking the link of it):
+1. how to navigate between directories
+2. how to select piece of text
+3. copying and pasting
+4. buffer switching
+5. switching between windows
+6. searching between text with C-s
+7. what is killring and it's benefit
+8. navigating in doc's
+9. running terminal in emacs
+10. changing and installing theme's
+11. auto tab for clean code
+12. switch between programs
+
+Or better:
+if you want to use emacs for first time you can read it's own manual and it's really simple. just after opening emacs type
+C-h t : (hold Ctrl+h and then type t)
+
+hint:
+C- is instance of Ctrl key
+M- is instance of Meta key (Alt key)
+
+what you learn from reading this short and effective touturial:
+....
+
+here is some additional hint's that is not in this brief touturial so let's investigate it:
+
+
+
+
+part2:
+this config added features and how to use them:
+1. navigating between windows
+2. compile ConTeXt file
+3. view genereated pdf's
+4. save & load desktop session
+5. backspace and delete key behaviour
+6. start/stop auto completion
+
+
+Recommended file structure for using ConTeXt within Emacs:
+we create our prjoect folder witch name is our project name and inside it we have this sub-folders:
+1. Main.ctx : the main file of our project that we compile it
+2. Sections
+3. Setups
+4. Sources
+5. Symbols
+6. Images
+7. Other-Components
+
+by just typing "C-c N" you can simply create a redy to work project structure.
+
+
+\stoptext

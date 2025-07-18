@@ -1,6 +1,0 @@
-%b
-this file created in two parts
-1. essentials touturials for using context within emacs
-2. describing how the source code works and why we choose this decisions
-
-the goal of second section is for more easily  develope able source code. 

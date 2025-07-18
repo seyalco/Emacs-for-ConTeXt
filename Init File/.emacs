@@ -16,7 +16,11 @@
  ;; If there is more than one, they won't work right.
  )
  
- (setq-default scroll-bar-width 7)
+;;keep the scroll bar thin and not show any extra visual clutter,
+(setq-default scroll-bar-width 7)
+;;
+
+
  (setq-default tab-width 4)
  (add-to-list 'auto-mode-alist '("\\.ctx\\'" . plain-tex-mode))
  (setq compilation-ask-about-save nil)
@@ -151,6 +155,66 @@
           (lambda ()
             (local-set-key (kbd "TAB") 'my/context-tab-handler)))
 ;;End -- ConTeXt auto start,stop inserting
+
+;;Begin -- Template folder
+(defvar my/template-folder-path nil
+  "Path to the user-defined Template folder.")
+
+(defun my/set-template-folder-path ()
+  "Prompt the user to select a Template folder, and save it to `my/template-folder-path`."
+  (interactive)
+  (let ((dir (read-directory-name "Enter parent path of main 'Template' folder: ")))
+    (if (file-directory-p (expand-file-name "Template" dir))
+        (progn
+          (setq my/template-folder-path (expand-file-name "Template" dir))
+          (message "✅ Template folder path set to: %s" my/template-folder-path))
+      (message "❌ No 'Template' folder found in: %s" dir))))
+
+(defun my/copy-template-to-current-dir ()
+  "Copy the Template directory to the current directory.
+Prompts for a path if Template folder is not yet set or missing."
+  (interactive)
+  (let* ((target-dir (file-name-directory (or buffer-file-name default-directory)))
+         (target-path (expand-file-name "Template" target-dir)))
+
+    ;; Step 1: If no template path or missing folder, prompt to set
+    (if (or (not my/template-folder-path)
+            (not (file-directory-p my/template-folder-path)))
+        (when (yes-or-no-p (format "❌ No 'Template' folder found in: %s\nWould you like to set a new path? "
+                                   (or my/template-folder-path "N/A")))
+          (my/set-template-folder-path)))
+
+    ;; Step 2: Copy template if everything is valid
+    (cond
+     ((not (file-directory-p my/template-folder-path))
+      (message "❌ Still no valid Template folder path set."))
+
+     ((file-directory-p target-path)
+      (message "⚠️ A 'Template' folder already exists in this directory: %s" target-dir))
+
+     (t
+      (copy-directory my/template-folder-path target-path)
+      (message "✅ Template folder copied to: %s" target-dir)))))
+
+;; Bind to C-c N
+(global-set-key (kbd "C-c N") #'my/copy-template-to-current-dir)
+
+
+;; Save variable value across sessions
+(setq my/template-folder-path nil)
+(setq-default my/template-folder-path nil)
+
+;; Save custom variables to a file
+(setq custom-file "~/.emacs-custom.el")
+(load custom-file t)
+
+;; Save path
+(defun my/save-template-path ()
+  (customize-save-variable 'my/template-folder-path my/template-folder-path))
+
+(add-hook 'kill-emacs-hook #'my/save-template-path)
+;;End -- Template folder
+
 
 ;; Keybindings
 (global-set-key (kbd "C-c 9") 'windmove-right) ;;use it for ensuring the file is correctly readed until the end

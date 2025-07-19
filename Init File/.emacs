@@ -149,9 +149,10 @@
         (my/expand-start-environment)
       (indent-for-tab-command))))
 
-;;This ensures the TAB override is only active in plain text modes (including markdown, etc.).
-(add-to-list 'auto-mode-alist '("\\.\\(ctx\\|txt\\|tex\\)\\'" . text-mode))
-(add-hook 'text-mode-hook
+;;This ensures the TAB override is only active in latex modes (including markdown, etc.).
+(add-to-list 'auto-mode-alist '("\\.\\(ctx\\|mkiv\\)\\'" . latex-mode))
+
+(add-hook 'latex-mode-hook
           (lambda ()
             (local-set-key (kbd "TAB") 'my/context-tab-handler)))
 ;;End -- ConTeXt auto start,stop inserting

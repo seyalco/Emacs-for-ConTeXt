@@ -82,40 +82,43 @@
 ;;Begin -- session saving
  (require 'desktop)
 
-(defun my/in-main-ctx-p ()
-  "Check if the current buffer is visiting a file named 'Main.ctx'."
-  (let ((file (buffer-file-name)))
-    (and file (string-equal (file-name-nondirectory file) "Main.ctx"))))
+(defun my/in-directory-with-readme-p ()
+  "Check if current buffer's file is in a directory containing README.md."
+  (let* ((file (buffer-file-name))
+         (dir (and file (file-name-directory file)))
+         (readme (and dir (expand-file-name "README.md" dir))))
+    (and readme (file-exists-p readme))))
 
-(defun my/project-dir-from-main-ctx ()
-  "Return the directory of 'Main.ctx' if we are in it, else nil."
-  (when (my/in-main-ctx-p)
-    (file-name-directory (buffer-file-name))))
+(defun my/project-dir-from-readme ()
+  "Return current directory if it contains README.md, else nil."
+  (let ((file (buffer-file-name)))
+    (when (and file (my/in-directory-with-readme-p))
+      (file-name-directory file))))
 
 (defun my/save-session ()
-  "Save Emacs session to .emacs-session/ in the same folder as Main.ctx."
+  "Save Emacs session in .emacs-session/ under current directory if README.md is present."
   (interactive)
-  (let ((project-dir (my/project-dir-from-main-ctx)))
+  (let ((project-dir (my/project-dir-from-readme)))
     (if project-dir
         (let ((session-dir (expand-file-name ".emacs-session/" project-dir)))
           (make-directory session-dir :parents)
           (let ((desktop-dirname session-dir))
             (desktop-save session-dir t))
           (message "✅ Session saved in: %s" session-dir))
-      (message "❌ You are not in a 'Main.ctx' file."))))
+      (message "❌ No README.md found in current directory."))))
 
 (defun my/load-session ()
-  "Load Emacs session from .emacs-session/ in the same folder as Main.ctx."
+  "Load Emacs session from .emacs-session/ under current directory if README.md is present."
   (interactive)
-  (let ((project-dir (my/project-dir-from-main-ctx)))
+  (let ((project-dir (my/project-dir-from-readme)))
     (if project-dir
         (let ((session-dir (expand-file-name ".emacs-session/" project-dir)))
           (if (file-directory-p session-dir)
               (progn
                 (desktop-change-dir session-dir)
                 (message "✅ Session loaded from: %s" session-dir))
-            (message "❌ No .emacs-session/ directory found in: %s" project-dir)))
-      (message "❌ You are not in a 'Main.ctx' file."))))
+            (message "❌ No .emacs-session/ directory found in: %s" session-dir)))
+      (message "❌ No README.md found in current directory."))))
 
 
 ;; Keybindings

@@ -1,0 +1,103 @@
+%
+% File: FontsLoader.ctx
+% Description: Portable font management for the project.
+%              This setup allows ConTeXt to find and use fonts
+%              located within the project directory without system-wide installation.
+%
+
+\startmarkdowncode
+# Heading 1
+Some *italic* and **bold** text.
+
+1. First item
+2. Second item
+3. **Bold item** with `inline code`
+
+> A blockquote in Markdown
+
+```lua
+-- Lua code inside markdown block
+for i=1,5 do
+  print("Hello from Lua: "..i)
+end
+\stopmarkdowncode
+
+\startluacode 
+-- Helper function for logging messages to the terminal. Makes debugging easier.
+local function log_info(category, message)
+    tex.sprint(string.format("\boldface{[Font Setup: %s]} %s", category, message))
+    logs.newline()
+end
+
+-- Safely get the current directory of the main project file.
+-- job.dir gives the path from where the compilation was started.
+-- job.realpath gives the full, absolute path to the main file.
+-- We prefer the directory where the main file resides.
+local project_directory = lfs.dirname(job.realpath) or job.dir
+if not project_directory or project_directory == "" then
+    project_directory = "." -- Fallback to current directory
+end
+
+log_info("Path", "Project root detected at: " .. project_directory)
+
+-- Define the subdirectories within the project where fonts might be stored.
+-- Users can put fonts in the root, or in a 'fonts' or 'Fonts' subdirectory.
+local font_subdirs = {
+    "",         -- For fonts directly in the project root
+    "/fonts",   -- For fonts in a 'fonts' subdirectory
+    "/Fonts"    -- For fonts in a 'Fonts' subdirectory (case-sensitive systems)
+}
+
+-- Build a list of full, absolute paths to the font directories.
+local font_paths_to_add = {}
+for _, subdir in ipairs(font_subdirs) do
+    local full_path = project_directory .. subdir
+    -- Check if the directory actually exists before adding it.
+    -- This prevents polluting the search path with non-existent directories.
+    if lfs.isdir(full_path) then
+        table.insert(font_paths_to_add, full_path)
+        log_info("Discovery", "Found font directory to scan: " .. full_path)
+    end
+end
+
+-- Get the existing OSFONTDIR value, if any.
+local existing_osfontdir = os.getenv("OSFONTDIR") or ""
+
+-- Merge our new font paths with the existing ones.
+-- We use a colon (:) as a separator, which is standard for path lists on Unix-like systems
+-- and also works correctly on Windows for ConTeXt.
+local new_osfontdir_table = {}
+
+-- Add our project-specific paths first, so they have priority.
+for _, path in ipairs(font_paths_to_add) do
+    table.insert(new_osfontdir_table, path)
+end
+
+-- Add the existing system paths afterwards.
+if existing_osfontdir ~= "" then
+    table.insert(new_osfontdir_table, existing_osfontdir)
+end
+
+-- Concatenate all paths into a single string.
+local new_osfontdir_value = table.concat(new_osfontdir_table, ":")
+
+-- Set the environment variable. This must be done BEFORE any font is defined.
+os.setenv("OSFONTDIR", new_osfontdir_value)
+
+log_info("Update", "OSFONTDIR has been set for this run.")
+-- For debugging, you can print the final value:
+-- log_info("Debug", "Final OSFONTDIR = " .. new_osfontdir_value)
+
+-- This command forces ConTeXt to re-scan the font paths we just provided.
+-- It's the crucial step that makes the newly set OSFONTDIR effective immediately.
+fonts.names.scan()
+
+log_info("Scan", "Font database rescanned successfully.")
+\stopluacode
+
+% --- Font Definitions ---
+% Now that ConTeXt knows where to look for fonts, you can define them.
+% The user can now place 'Vazirmatn-Regular.ttf' or 'IRANSansX.ttf'
+% in the project folder (or a 'fonts' subfolder) and these definitions will work.
+
+\protect

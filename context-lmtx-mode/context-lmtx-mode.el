@@ -7,22 +7,14 @@
 
 ;;; Commentary:
 ;; Major mode برای ویرایش اسناد ConTeXt LMTX.
-;; قوانین هایلایت جداگانه در فایل context-lmtx-syntax-highlight.el تعریف شده‌اند.
+;; قوانین هایلایت جداگانه در context-lmtx-syntax-highlight.el تعریف شده‌اند.
 
 ;;; Code:
 (require 'context-tex-syntax-highlight) ;; بارگذاری قواعد هایلایت
 
-
-;; ================================================================
-;; KEYMAP
+;; ایجاد کی‌مپ خالی در ابتدا برای استفاده در سراسر فایل
 (defvar context-lmtx-mode-map
-  (let ((map (make-sparse-keymap)))
-    ;; کلیدهای میانبر
-    (define-key map (kbd "C-c c") #'compile-context-file)
-    (define-key map (kbd "C-c v") #'view-context-file)
-    (define-key map (kbd "C-c t") #'my/expand-start-environment)
-    (define-key map (kbd "TAB")   #'my/context-tab-handler)
-    map)
+  (make-sparse-keymap)
   "Keymap for `context-lmtx-mode`.")
 
 ;; ================================================================
@@ -34,19 +26,77 @@
         '(context-lmtx-font-lock-keywords nil nil nil nil (font-lock-multiline . t))))
 
 ;; ================================================================
-;; AUTO COMPILE & VIEW
-(defun compile-context-file ()
-  "Compile current ConTeXt file using `context`."
-  (interactive)
-  (compile (concat "context '" (file-name-nondirectory (buffer-file-name)) "'")))
-
+;; AUTO COMPILE & VIEW;; Open PDF without popup
 (defun view-context-file ()
-  "View compiled PDF with evince."
+  "View compiled PDF with evince without creating popup buffers."
   (interactive)
-  (async-shell-command
-   (format "evince %s.pdf"
-           (file-name-sans-extension
-            (file-name-nondirectory (buffer-file-name))))))
+  (start-process "evince" nil
+                 "evince"
+                 (concat (file-name-sans-extension
+                          (file-name-nondirectory (buffer-file-name))) ".pdf")))
+
+(define-key context-lmtx-mode-map (kbd "C-c v") #'view-context-file)
+
+;; Run ConTeXt compilation
+(defun compile-context-file ()
+  "Compile current ConTeXt file using `context`.
+If successful, do nothing; if errors occur, show them in a transient side window."
+  (interactive)
+  (let ((file (file-name-nondirectory (buffer-file-name)))
+        (compilation-buffer-name-function
+         (lambda (_) "*ConTeXt Compilation*")))
+    (compile (format "context '%s'" file))))
+
+(define-key context-lmtx-mode-map (kbd "C-c c") #'compile-context-file)
+
+;; Check for errors and display temporary window
+(defun my/context--buffer-has-errors-p (buf)
+  "Check if compilation BUF contains errors."
+  (with-current-buffer buf
+    (save-excursion
+      (goto-char (point-min))
+      (re-search-forward "error" nil t))))
+
+(defun my/context--show-errors-side (buf status)
+  "Show BUF in a side window only if compilation failed."
+  (if (and (string-match "finished" status)
+           (not (my/context--buffer-has-errors-p buf)))
+      ;; If successful → close buffer
+      (kill-buffer buf)
+    ;; If errors → show side window at the bottom
+    (let ((win (display-buffer-in-side-window
+                buf '((side . bottom) (window-height . 15)))))
+      (select-window win)
+      ;; Add help message
+      (let ((inhibit-read-only t))
+        (goto-char (point-max))
+        (insert "\n--------------------------------------------------\n")
+        (insert "⚠ The operation encountered an error\n")
+        (insert "To close this window: press q or C-c C-q\n"))
+      (my/transient-error-mode 1))))
+
+;; Temporary mode for easy closing
+(defvar my/transient-error-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "q") #'my/context--quit-error-window)
+    (define-key map (kbd "C-c C-q") #'my/context--quit-error-window)
+    map)
+  "Keymap for transient error mode in ConTeXt compilation buffer.")
+
+(define-minor-mode my/transient-error-mode
+  "Minor mode for transient ConTeXt compilation windows."
+  :lighter " ErrWin"
+  :keymap my/transient-error-mode-map)
+
+(defun my/context--quit-error-window ()
+  "Close the transient error side window and kill buffer."
+  (interactive)
+  (let ((buf (current-buffer)))
+    (delete-window)
+    (kill-buffer buf)))
+
+;; Connect to finish hook
+(add-hook 'compilation-finish-functions #'my/context--show-errors-side)
 
 ;; ================================================================
 ;; AUTO START-STOP INSERTING
@@ -63,6 +113,8 @@
         (forward-line -1)
         (indent-according-to-mode)))))
 
+(define-key context-lmtx-mode-map (kbd "C-c t") #'my/expand-start-environment)
+
 (defun my/context-tab-handler ()
   "Smart TAB for expanding \\startXXX environments."
   (interactive)
@@ -70,6 +122,8 @@
     (if (string-match "^\\\\start\\([A-Za-z]+\\)\\s-*$" line)
         (my/expand-start-environment)
       (indent-for-tab-command))))
+
+(define-key context-lmtx-mode-map (kbd "TAB") #'my/context-tab-handler)
 
 ;; ================================================================
 ;; POLYMODE INTEGRATION

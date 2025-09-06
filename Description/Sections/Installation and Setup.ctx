@@ -1,0 +1,87 @@
+\startsection[title={Installation and Setup}]
+
+\startsection[title={Installation}]
+
+\startitemize[n]
+\item Copy the \type{context-lmtx-mode} folder into your personal Emacs packages directory:
+
+\type{~/.emacs.d/Packages/context-lmtx-mode/}
+
+\item Ensure all dependencies are also present in the same directory:
+
+\startitemize
+\item \type{~/.emacs.d/Packages/polymode/}
+\item \type{~/.emacs.d/Packages/company-mode/}
+\item \type{~/.emacs.d/Packages/lua-mode/}
+\item \type{~/.emacs.d/Packages/markdown-mode/}
+\stopitemize
+
+\item In your \type{init.el}, add the following code:
+\stopitemize
+
+\starttyping
+;; Path to personal packages
+(let ((base "~/.emacs.d/Packages/"))
+  (dolist (path '("context-lmtx-mode"
+                  "polymode"
+                  "company-mode"
+                  "lua-mode"
+                  "markdown-mode"))
+    (add-to-list 'load-path (expand-file-name path base))))
+
+;; Load main module
+(require 'context-lmtx-mode)
+
+;; Load optional extras (without adding to global load-path)
+(load (expand-file-name
+       "context-lmtx-mode/Optional/myextras-loader.el"
+       "~/.emacs.d/Packages/"))
+\stoptyping
+
+\stopsection % Installation
+
+% -----------------------------------------
+
+\startsection[title={Usage}]
+
+\startitemize
+\item Open any \type{.ctx} file → \type{context-lmtx-mode} will start automatically.
+\item The mode enhances editing with:
+  \startitemize
+  \item Syntax highlighting
+  \item Code completion
+  \item Optional productivity tools
+  \stopitemize
+\stopitemize
+
+\stopsection % Usage
+
+% -----------------------------------------
+
+\startsection[title={Template Management Shortcuts}]
+
+\startitemize
+\item \type{C-c N} → Add or remove a template
+\item \type{C-c M} → Copy a template from the saved list into the current directory
+\stopitemize
+
+\stopsection % Template Management Shortcuts
+
+% -----------------------------------------
+
+\startsection[title={Folder Structure}]
+
+\starttyping
+context-lmtx-mode/
+│
+├── context-lmtx-mode.el       # Main major mode file
+├── Optional/                  # Extra optional tools
+│   ├── myextras-loader.el     # Isolated loader for optional modules
+│   └── template-tools.el      # Template management utilities
+└── README.md                  # This file
+\stoptyping
+
+\stopsection % Folder Structure
+
+\stopsection % Installation and Setup
+

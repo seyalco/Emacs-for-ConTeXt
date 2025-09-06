@@ -1,4 +1,164 @@
-%b
+% Template.ctx - placeholder
+\usepath[{./Sections/}]
+\usepath[{./Setups/}]
+\usepath[{./Symbols/}]
+\usepath[{./Sources/}]
+
+%%% Setups %%%
+%\input{FontsLoader.ctx}
+%\input{Fonts.ctx}
+\input{Setups.ctx}
+%\input{Symbols.ctx}
+%\input{Theme.ctx}
+%\input{To-Language.ctx}
+%%% End of Setups %%%
+
+\starttext
+\input{preface.ctx}
+\input{Installation and Setup.ctx} %% Hello World!
+\input{conclusion.ctx}
+\stoptext
+
+\starttext
+
+\starttitle[title={\type{context-lmtx-mode} Package Guide}]
+
+This package provides an enhanced environment for working with \goto{ConTeXt LMTX}[url(https://wiki.contextgarden.net/LMTX)] 
+inside \bold{Emacs}. It makes it easier and faster to write, edit, and compile ConTeXt documents directly from Emacs, 
+without switching between external tools.
+
+\stoptitle
+
+\section{Package Structure}
+
+The package consists of \bold{two main files}:
+
+\subsection{\type{myextraloaders.el}}
+
+This file contains additional configurations and quality-of-life improvements for Emacs, such as:
+
+\startitemize
+\item Automatic closing of parentheses, quotes, and braces.
+\item Improved visual appearance for a more comfortable editing experience.
+\item Custom keyboard shortcuts for navigating quickly between windows.
+\item Minor performance and usability tweaks to make writing smoother.
+\stopitemize
+
+{\it This file is auxiliary, meaning it boosts productivity and comfort while working inside Emacs.}
+
+\subsection{\type{context-lmtx-mode.el}}
+
+This is the core of the package.  
+It provides features specifically designed for editing and compiling ConTeXt LMTX documents, including:
+
+\startitemize
+\item Syntax highlighting for ConTeXt commands.
+\item Auto-completion for ConTeXt keywords and snippets.
+\item Dedicated keybindings for quick document compilation.
+\item Instant preview of generated output (e.g., PDF) without leaving Emacs.
+\item Management and coordination of related project files.
+\stopitemize
+
+\section{Purpose of the Package}
+
+The main goal of \type{context-lmtx-mode} is to help ConTeXt users:
+\startitemize[n]
+\item Write faster with less boilerplate.
+\item Avoid syntax errors with syntax-aware features.
+\item Compile and preview output directly inside Emacs.
+\stopitemize
+
+\section{How the Loading Works}
+
+The typical loading sequence is:
+
+\startitemize[n]
+\item \type{myextraloaders.el} — Loads first to apply general editing enhancements and UI improvements.
+\item \type{context-lmtx-mode.el} — Loads afterwards, enabling ConTeXt-specific features and compilation helpers.
+\stopitemize
+
+\section{Installation and Setup}
+
+\subsection{Installation}
+
+\startitemize[n]
+\item Copy the \type{context-lmtx-mode} folder into your personal Emacs packages directory:
+
+\type{~/.emacs.d/Packages/context-lmtx-mode/}
+
+\item Ensure all dependencies are also present in the same directory:
+
+\startitemize
+\item \type{~/.emacs.d/Packages/polymode/}
+\item \type{~/.emacs.d/Packages/company-mode/}
+\item \type{~/.emacs.d/Packages/lua-mode/}
+\item \type{~/.emacs.d/Packages/markdown-mode/}
+\stopitemize
+
+\item In your \type{init.el}, add the following code:
+\stopitemize
+
+\starttyping
+;; Path to personal packages
+(let ((base "~/.emacs.d/Packages/"))
+  (dolist (path '("context-lmtx-mode"
+"polymode"
+"company-mode"
+"lua-mode"
+"markdown-mode"))
+(add-to-list 'load-path (expand-file-name path base))))
+
+;; Load main module
+(require 'context-lmtx-mode)
+
+;; Load optional extras (without adding to global load-path)
+(load (expand-file-name
+"context-lmtx-mode/Optional/myextras-loader.el"
+"~/.emacs.d/Packages/"))
+\stoptyping
+
+\subsection{Usage}
+
+\startitemize
+\item Open any \type{.ctx} file → \type{context-lmtx-mode} will start automatically.
+\item The mode enhances editing with:
+  \startitemize
+  \item Syntax highlighting
+  \item Code completion
+  \item Optional productivity tools
+  \stopitemize
+\stopitemize
+
+\subsection{Template Management Shortcuts}
+
+\startitemize
+\item \type{C-c N} → Add or remove a template
+\item \type{C-c M} → Copy a template from the saved list into the current directory
+\stopitemize
+
+\subsection{Folder Structure}
+
+\starttyping
+context-lmtx-mode/
+│
+├── context-lmtx-mode.el       # Main major mode file
+├── Optional/                  # Extra optional tools
+│   ├── myextras-loader.el     # Isolated loader for optional modules
+│   └── template-tools
+
+\section{Coming Soon}
+
+Planned additions to this guide:
+\startitemize
+\item Installation Instructions
+\item Keybindings Reference Table
+\item Tips for Customization
+\stopitemize
+
+\stoptext
+
+
+
 \starttext
 this file created in two parts
 1. essentials touturials for using context within emacs

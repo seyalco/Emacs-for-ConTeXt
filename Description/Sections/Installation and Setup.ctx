@@ -1,4 +1,4 @@
-\startsection[title={Installation and Setup}]
+\startchapter[title={Installation and Setup}]
 
 \startsection[title={Installation}]
 
@@ -69,19 +69,5 @@
 
 % -----------------------------------------
 
-\startsection[title={Folder Structure}]
-
-\starttyping
-context-lmtx-mode/
-│
-├── context-lmtx-mode.el       # Main major mode file
-├── Optional/                  # Extra optional tools
-│   ├── myextras-loader.el     # Isolated loader for optional modules
-│   └── template-tools.el      # Template management utilities
-└── README.md                  # This file
-\stoptyping
-
-\stopsection % Folder Structure
-
-\stopsection % Installation and Setup
+\stopchapter % Installation and Setup
 

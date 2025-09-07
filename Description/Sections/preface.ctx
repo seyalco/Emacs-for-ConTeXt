@@ -1,1 +1,72 @@
-% introduction.tex - placeholder
+\starttitle[title={\type{context-lmtx-mode} Package Guide}]
+
+This package provides an enhanced environment for working with \goto{ConTeXt LMTX}[url(https://wiki.contextgarden.net/LMTX)] 
+inside \bold{Emacs}. It makes it easier and faster to write, edit, and compile ConTeXt documents directly from Emacs, 
+without switching between external tools.
+
+\stoptitle
+
+\section{Package Structure}
+
+The package consists of \bold{two main files}:
+
+\subsection{\type{myextraloaders.el}}
+
+This file contains additional configurations and quality-of-life improvements for Emacs, such as:
+
+\startitemize
+\item Automatic closing of parentheses, quotes, and braces.
+\item Improved visual appearance for a more comfortable editing experience.
+\item Custom keyboard shortcuts for navigating quickly between windows.
+\item Minor performance and usability tweaks to make writing smoother.
+\stopitemize
+
+{\it This file is auxiliary, meaning it boosts productivity and comfort while working inside Emacs.}
+
+\subsection{\type{context-lmtx-mode.el}}
+
+This is the core of the package.  
+It provides features specifically designed for editing and compiling ConTeXt LMTX documents, including:
+
+\startitemize
+\item Syntax highlighting for ConTeXt commands.
+\item Auto-completion for ConTeXt keywords and snippets.
+\item Dedicated keybindings for quick document compilation.
+\item Instant preview of generated output (e.g., PDF) without leaving Emacs.
+\item Management and coordination of related project files.
+\stopitemize
+
+\section{Purpose of the Package}
+
+The main goal of \type{context-lmtx-mode} is to help ConTeXt users:
+\startitemize[n]
+\item Write faster with less boilerplate.
+\item Avoid syntax errors with syntax-aware features.
+\item Compile and preview output directly inside Emacs.
+\stopitemize
+
+\startsection[title={Folder Structure}]
+
+\starttyping
+context-lmtx-mode/
+│
+├── context-lmtx-mode.el       # Main major mode file
+├── Optional/                  # Extra optional tools
+│   ├── myextras-loader.el     # Isolated loader for optional modules
+│   └── template-tools.el      # Template management utilities
+└── README.md                  # Instruction file
+\stoptyping
+
+\stopsection % Folder Structure
+
+
+\section{How the Loading Works}
+
+The typical loading sequence is:
+
+\startitemize[n]
+\item \type{myextraloaders.el} — Loads first to apply general editing enhancements and UI improvements.
+\item \type{context-lmtx-mode.el} — Loads afterwards, enabling ConTeXt-specific features and compilation helpers.
+\stopitemize
+
+

@@ -1,0 +1,61 @@
+\startchapter[title={About \type{myextras-loader.el}}]
+
+The file \type{myextras-loader.el} is an **optional loader** for additional configurations used by user.  
+Its main role is to load extra features located inside the \quote{Optional} folder **without** adding that folder to the global \type{load-path} in Emacs.
+
+\startsection[title={Purpose}]
+
+The design of \type{myextras-loader.el} serves three main goals:
+
+\startitemize
+\item **Prevent namespace collisions** by keeping optional modules isolated from the global \type{load-path}.
+\item **Ensure correct file loading** by explicitly locating and loading each optional module from the same directory.
+\item **Encourage modularity and maintainability** so that each optional feature can be enabled, disabled, or modified independently.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Usage}]
+
+You can load this file directly in your \type{init.el} (or main Emacs configuration):
+
+\starttyping
+(load (expand-file-name
+       "context-lmtx-mode/Optional/myextras-loader.el"
+       "~/.emacs.d/Packages/"))
+\stoptyping
+
+\blank
+This ensures that:
+\startitemize
+\item All optional modules are loaded from the correct local directory.
+\item The \quote{Optional} folder remains completely isolated from global Emacs paths.
+\stopitemize
+
+\stopsection % Usage
+
+\startsection[title={How It Works}]
+
+\startitemize[n]
+\item **Identify loader directory** — The variable \type{myextras-dir} stores the absolute path to the \quote{Optional} folder.
+\item **List optional modules** — The variable \type{myextras-files} contains the filenames of all optional configuration files to be loaded (in the correct order).
+\item **Load files safely** — A \type{dolist} loop loads each file only if it exists, preventing errors when files are missing.
+\stopitemize
+
+\stopsection % How It Works
+
+\startsection[title={Default Optional Modules}]
+
+By default, the following files are included in \type{myextras-files}:
+
+\startitemize
+\item \type{appearance.el} — UI and visual enhancements for Emacs.
+\item \type{keybindings.el} — Custom shortcuts for faster navigation and editing.
+\item \type{session-saving.el} — Save and restore your Emacs editing sessions.
+\item \type{template-tools.el} — Add, remove, and manage document templates.
+\item \type{miscellaneous.el} — Miscellaneous small features and tweaks.
+\stopitemize
+
+\stopsection % Default Optional Modules
+
+\stopchapter % About myextras-loader.el

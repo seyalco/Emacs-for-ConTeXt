@@ -1,0 +1,86 @@
+\startchapter[title={About \type{session-saving.el}}]
+
+The file \type{session-saving.el} is an \bold{optional module} for 
+\type{context-lmtx-mode} that provides \bold{project-based session saving}.  
+It uses Emacs' built-in \type{desktop} package to remember open buffers, 
+window configuration, and other session data.
+
+Unlike the default Emacs session saving (which is global),  
+this module saves and loads sessions \bold{per project}, 
+where a project is identified by the presence of a \type{README.md} 
+file in its root directory.
+
+\startsection[title={Purpose}]
+
+The main goals of \type{session-saving.el} are:
+
+\startitemize
+\item Enable \bold{isolated sessions for each project} so that files from different projects do not mix.
+\item Allow the user to \bold{resume work} exactly where they left off, including open source files, window layout, and buffer states.
+\item Integrate the save/load process into a simple keyboard shortcut.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={How It Determines a Project}]
+
+A project is recognized if the \italic{current buffer's directory} contains a 
+\type{README.md} file.
+
+Internally:
+
+\startitemize[n]
+\item \type{my/in-directory-with-readme-p} — Checks if the current file is inside a folder containing \type{README.md}.
+\item \type{my/project-dir-from-readme} — Returns the project's root directory if such a \type{README.md} exists.
+\stopitemize
+
+\stopsection % How It Determines a Project
+
+\startsection[title={How It Works}]
+
+\startsubsection[title={Saving a Session}]
+Using \type{M-x my/save-session} or the shortcut \type{C-c S}:
+
+\startitemize
+\item Detect the project folder.
+\item Create a hidden directory \type{.emacs-session/} in the project root.
+\item Use \type{desktop-save} to store the session data there.
+\item Show a confirmation message with the save location.
+\stopitemize
+\stopsubsection
+
+\startsubsection[title={Loading a Session}]
+Using \type{M-x my/load-session} or the shortcut \type{C-c L}:
+
+\startitemize
+\item Detect the project folder.
+\item Look for an existing \type{.emacs-session/} directory.
+\item If found, switch to it with \type{desktop-change-dir} and restore the session.
+\item Show either a success or an error message.
+\stopitemize
+\stopsubsection
+
+\stopsection % How It Works
+
+\startsection[title={Keybindings}]
+
+\startitemize
+\item \type{C-c S} — Save the current project's session.
+\item \type{C-c L} — Load the current project's session.
+\stopitemize
+
+These keybindings can be invoked from any buffer that is part of a recognized project.
+
+\stopsection % Keybindings
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Requires Emacs’ built-in \type{desktop} library: \type{(require 'desktop)}.
+\item Session data is stored per project and does not interfere with the global \type{desktop} session.
+\item To change the project detection criterion, modify the \type{my/in-directory-with-readme-p} function.
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About session-saving.el

@@ -1,0 +1,90 @@
+\startchapter[title={About \type{context-lmtx-mode.el}}]
+
+The file \type{context-lmtx-mode.el} is the \bold{core module} of the 
+\type{context-lmtx-mode} package for Emacs.  
+It defines the \italic{major mode} for editing ConTeXt LMTX documents, along with
+features such as automatic compilation, PDF viewing, error handling,
+environment code expansion, polymode integration, and auto-completion.
+
+This module forms the foundation for all other optional components, 
+providing essential editing, compilation, and integration functionality.
+
+\startsection[title={Purpose}]
+
+The main goals of \type{context-lmtx-mode.el} are:
+
+\startitemize
+\item Provide a dedicated \italic{major mode} for ConTeXt LMTX documents
+with proper syntax highlighting.
+\item Offer a smooth workflow for \italic{editing → compiling → viewing} documents.
+\item Deliver built-in \italic{error handling} and clear compilation feedback.
+\item Enable \italic{smart editing features} such as automatic 
+\type{\start...\stop} environment insertion.
+\item Support \italic{multi-language blocks} through Polymode integration.
+\item Integrate with \italic{company-mode} for ConTeXt command auto-completion.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Key Features}]
+
+\startitemize
+\item \bold{Major Mode Definition:}
+  \startitemize
+  \item Inherits from \type{text-mode}.
+  \item Loads syntax highlighting rules from \type{context-tex-syntax-highlight.el}.
+  \stopitemize
+
+\item \bold{Compilation and Viewing:}
+  \startitemize
+  \item \type{C-c c} — Compile the current file using the ConTeXt \type{context} command.
+  \item \type{C-c v} — Open the compiled PDF with \type{evince} without creating extra buffers.
+  \stopitemize
+
+\item \bold{Error Handling:}
+  \startitemize
+  \item Detects compilation errors automatically.
+  \item Closes the compilation buffer if there are no errors.
+  \item If errors occur, shows a bottom side-window with the compilation log.
+  \item Includes a transient error mode to quickly close the window 
+  using \type{q} or \type{C-c C-q}.
+  \stopitemize
+
+\item \bold{Smart Environment Expansion:}
+  \startitemize
+  \item \type{C-c t} — Automatically insert the matching \type{\stopENV} for a given \type{\startENV}.
+  \item The \type{TAB} key expands environments when appropriate or 
+  performs normal indentation otherwise.
+  \stopitemize
+
+\item \bold{Polymode Integration:}
+  \startitemize
+  \item Allows embedding and editing of \type{Lua} code blocks 
+  using \type{\startluacode...\stopluacode}.
+  \item Supports Markdown blocks via \type{\startmarkdowncode...\stopmarkdowncode}.
+  \item Associates file extensions \type{.ctx}, \type{.mkiv}, and \type{.mkxl} with this mode.
+  \stopitemize
+
+\item \bold{Auto-Completion:}
+  \startitemize
+  \item Loads additional modules \type{context-lmtx-commands} and \type{context-lmtx-autocomplete}.
+  \item Provides \italic{company-mode} completion for ConTeXt commands and environments.
+  \stopitemize
+\stopitemize
+
+\stopsection % Key Features
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Uses Emacs’s built-in \type{compile} command to run ConTeXt.
+\item Detects errors in compilation output using regular expressions.
+\item Defines a \italic{host mode} (\type{poly-context-hostmode}) and two \italic{inner modes} 
+(\type{poly-context-lua-innermode} and \type{poly-context-markdown-innermode}) for Polymode.
+\item Environment expansion feature leverages \type{thing-at-point} and regex matching 
+to find and complete \type{\start...\stop} pairs.
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About context-lmtx-mode.el

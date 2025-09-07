@@ -1,3 +1,8 @@
+you can install the required package's manually
+
+or you can run this Script to install:
+
+
 known problems:
 1. After changing a theme the innermode has their previous them state
 by editing some piece of that blodk or by restarting your buffer you can solve this.

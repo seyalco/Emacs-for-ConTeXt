@@ -7,7 +7,7 @@
 
 ;;; Commentary:
 ;; Major mode برای ویرایش اسناد ConTeXt LMTX.
-;; قوانین هایلایت جداگانه در context-lmtx-syntax-highlight.el تعریف شده‌اند.
+;; قوانین هایلایت جداگانه در context-tex-syntax-highlight.el تعریف شده‌اند.
 
 ;;; Code:
 (require 'context-tex-syntax-highlight) ;; بارگذاری قواعد هایلایت

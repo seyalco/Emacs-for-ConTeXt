@@ -1,0 +1,48 @@
+\startchapter[title={About \type{keybindings.el}}]
+
+The file \type{keybindings.el} is an **optional module** for 
+\type{context-lmtx-mode} that defines a small set of custom keybindings.  
+These bindings aim to improve editing efficiency by offering quick window
+navigation and simple insertion commands without requiring extra packages.
+
+\startsection[title={Purpose}]
+
+The main goals of \type{keybindings.el} are:
+
+\startitemize
+\item Provide **fast navigation between windows** using intuitive shortcuts.
+\item Allow quick insertion of common characters (e.g., quotation marks) without 
+pressing awkward key combinations.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Defined Keybindings}]
+
+\startitemize
+\item **Window navigation:**
+  \startitemize
+  \item \type{C-c b} — Move to the window **left** (\type{windmove-left}).
+  \item \type{C-c f} — Move to the window **right** (\type{windmove-right}).
+  \item \type{C-c p} — Move to the window **above** (\type{windmove-up}).
+  \item \type{C-c n} — Move to the window **below** (\type{windmove-down}).
+  \stopitemize
+
+\item **Text insertion:**
+  \startitemize
+  \item \type{C-"} — Insert a double quotation mark (\type{"}) at point.
+  \stopitemize
+\stopitemize
+
+\stopsection % Defined Keybindings
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Uses Emacs built-in \type{windmove} library functions, no extra dependencies required.
+\item The \type{C-"} binding uses an inline anonymous \type{lambda} function to insert the character without needing a custom function definition.
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About keybindings.el

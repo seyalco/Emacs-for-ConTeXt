@@ -1,0 +1,102 @@
+\startchapter[title={About \type{template-tools.el}}]
+
+The file \type{template-tools.el} is an optional module for 
+\type{context-lmtx-mode} that provides a complete \italic{template management system}
+for quickly storing, listing, removing, and copying reusable file or folder templates.
+
+It allows users to:
+\startitemize
+\item Save frequently used document structures or snippets as templates.
+\item Assign each template an auto-generated number for quick selection.
+\item Copy templates directly into the current working directory from Emacs.
+\stopitemize
+
+\startsection[title={Purpose}]
+
+The main goals of \type{template-tools.el} are:
+
+\startitemize
+\item Improve workflow efficiency by providing quick access to reusable structures.
+\item Make template management simple with a numbered quick-select system.
+\item Keep template storage local to the \type{Optional} configuration folder.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Storage System}]
+
+\startitemize[n]
+\item Templates are stored in the \type{my/template-list} variable (a list of file/folder paths).
+\item This list is automatically loaded from the file \type{Template-folder.el} 
+located in the Optional folder (\type{myextras-dir}).
+\item The list can be refreshed with \type{my/load-templates} and saved 
+via \type{my/save-templates}.
+\item The storage file is auto-generated; manual editing is discouraged.
+\stopitemize
+
+\stopsection % Storage System
+
+\startsection[title={Core Functions}]
+
+\startitemize[n]
+\item \bf\type{my/add-template} — Prompts the user to select a folder or file as a template.
+  \startitemize
+  \item Avoids duplicates.
+  \item Sorts templates alphabetically.
+  \item Saves updated list automatically.
+  \stopitemize
+
+\item \bf\type{my/remove-template} — Lists all templates with numbers, waits for preview, 
+then removes the selected one.
+
+\item \bf\type{my/copy-template-here} — Lists templates with numbers, waits for 3 seconds, 
+and copies the selected one to the directory of the current buffer.
+  \startitemize
+  \item Handles both files and directories.
+  \item Prevents overwriting by checking if the destination already exists.
+  \stopitemize
+
+\item \bf\type{my/manage-templates} — Asks whether to add or remove a template and 
+delegates to the relevant function.
+\stopitemize
+
+\stopsection % Core Functions
+
+\startsection[title={Numbered Quick-Select System}]
+
+When listing templates:
+\startitemize
+\item Each template is shown as:
+  \starttyping
+  1) /path/to/template1
+  2) /path/to/template2
+  ...
+  \stoptyping
+\item The user enters the number (not the path) to perform removal or copying.
+\stopitemize
+
+This system avoids long directory navigation and enables fast template retrieval.
+
+\stopsection % Numbered Quick-Select System
+
+\startsection[title={Keybindings}]
+
+\startitemize
+\item \type{C-c N} — Add or remove a template (\type{my/manage-templates}).
+\item \type{C-c M} — Copy a template into the current directory (\type{my/copy-template-here}).
+\stopitemize
+
+\stopsection % Keybindings
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Templates are stored in a plain Emacs Lisp file  
+(\type{Template-folder.el}) in the Optional folder.
+\item Uses standard Emacs functions for file and directory manipulation.
+\item \type{sit-for 3} is used for preview delay before taking user input.
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About template-tools.el

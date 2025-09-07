@@ -1,0 +1,72 @@
+\startchapter[title={About \type{miscellaneous.el}}]
+
+The file \type{miscellaneous.el} is an optional module for Emacs 
+that contains small, independent tweaks and micro-utilities 
+which improve everyday editing workflow.  
+It can be loaded by \type{myextras-loader.el} as part of the user’s 
+Optional configuration.
+
+This module gathers configurations that do not require their own separate file, 
+including custom deletion functions, editing enhancements, and a few behavior adjustments.
+
+\startsection[title={Purpose}]
+
+\startitemize
+\item Provide handy word/backspace deletion utilities for more intuitive text editing.
+\item Enable minor editing enhancements that are useful in most coding and writing contexts.
+\item Adjust certain global Emacs behaviors for convenience.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Backspace and Word Deletion Functions}]
+
+This section introduces functions to control how words and whitespace are removed.
+
+\startitemize[n]
+\item \bf\type{ryanmarcus/backward-kill-word}  
+  Deletes backward intelligently:  
+  \startitemize
+  \item If the cursor is preceded by whitespace or newlines, it removes them continuously.
+  \item Otherwise, deletes a single word backward, using \type{backward-kill-word}.
+  \stopitemize
+
+\item \bf\type{delete-backward-word}  
+  Deletes \em{ARG} words backward \em{without} saving them to the kill ring.
+
+\item \bf\type{delete-forward-word}  
+  Deletes \em{ARG} words forward \em{without} saving them to the kill ring.
+\stopitemize
+
+\stopsection % Backspace and Word Deletion Functions
+
+\startsection[title={Keybindings for Deletion}]
+
+\startitemize
+\item \type{C-<backspace>} — Calls \type{delete-backward-word}.
+\item \type{C-<delete>} — Calls \type{delete-forward-word}.
+\stopitemize
+
+These bindings make clean word deletion more efficient during text editing.
+
+\stopsection % Keybindings for Deletion
+
+\startsection[title={Editing Enhancements}]
+
+\startitemize
+\item Enables \bf\type{electric-pair-mode} globally to automatically insert matching brackets and quotes.
+\item Sets \type{electric-pair-preserve-balance} to \type{t} to maintain syntactic balance when inserting or removing pairs.
+\stopitemize
+
+\stopsection % Editing Enhancements
+
+\startsection[title={Miscellaneous Behavior Tweaks}]
+
+\startitemize
+\item Disables confirmation before saving buffers when running \type{compile} by setting:  
+  \type{compilation-ask-about-save} to \type{nil}.
+\stopitemize
+
+\stopsection % Miscellaneous Behavior Tweaks
+
+\stopchapter % About miscellaneous.el

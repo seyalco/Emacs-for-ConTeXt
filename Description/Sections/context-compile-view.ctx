@@ -1,0 +1,79 @@
+\startchapter[title={About \type{context-compile-view.el}}]
+
+The file \type{context-compile-view.el} is an \bold{optional extension} for 
+\type{context-lmtx-mode} that integrates commands for compiling and viewing 
+ConTeXt documents directly from within Emacs, without the need to switch to 
+an external terminal or file manager.
+
+This module works on \bold{GNU/Linux}, \bold{macOS} and \bold{Windows}, and 
+offers an \italic{error-aware compilation process}: successful compilations 
+automatically close their log buffer, while failed compilations display errors 
+in a dedicated window at the bottom of the Emacs frame.
+
+\startsection[title={Purpose}]
+
+The main goals of \type{context-compile-view.el} are:
+
+\startitemize
+\item Provide a \bold{single-key compile} command for the current ConTeXt file using the \type{context} command line tool.
+\item Allow \bold{instant PDF preview} using the default viewer of the operating system.
+\item Improve workflow by \italic{automatically closing} the compilation buffer when there are no errors, and showing the error log if needed.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Features and Workflow}]
+
+\startitemize
+\item \bold{Compilation command} (\type{C-c c}):
+  \startitemize
+  \item Runs \type{context} on the current file.
+  \item Opens a temporary buffer named \type{*ConTeXt Compilation*} to show the output.
+  \item Closes the buffer automatically if there are no errors.
+  \item Opens a side window if errors occur, showing the log with a clear separator and instructions.
+  \stopitemize
+
+\item \bold{View PDF command} (\type{C-c v}):
+  \startitemize
+  \item Opens the compiled PDF associated with the current source file.
+  \item Cross-platform behavior:
+    \startitemize
+    \item \bold{GNU/Linux} — Tries \type{evince}, otherwise falls back to \type{xdg-open}.
+    \item \bold{macOS} — Uses the system command \type{open}.
+    \item \bold{Windows} — Uses \type{cmd /c start} to open the default PDF application.
+    \stopitemize
+  \stopitemize
+
+\item \bold{Transient error window mode}:
+  \startitemize
+  \item Activates a minor mode in the error window.
+  \item Allows the user to press \type{q} or \type{C-c C-q} to close the window quickly.
+  \stopitemize
+\stopitemize
+
+\stopsection % Features and Workflow
+
+\startsection[title={Keybindings Provided}]
+
+When \type{context-lmtx-mode} is loaded, this extension defines:
+
+\startitemize
+\item \type{C-c c} — Compile the current ConTeXt file (\type{compile-context-file}).
+\item \type{C-c v} — View the generated PDF (\type{context-view-pdf}).
+\stopitemize
+
+\stopsection % Keybindings
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Uses the built-in Emacs \type{compile} framework for process handling and output capture.
+\item Detects errors by searching case-insensitively for the word \type{error} in the compilation output.
+\item Displays failures in a bottom \italic{side window} using \type{display-buffer-in-side-window}.
+\item Selects an appropriate PDF viewer depending on \type{system-type}.
+\item Requires no additional Emacs packages beyond \type{context-lmtx-mode}.
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About context-compile-view.el

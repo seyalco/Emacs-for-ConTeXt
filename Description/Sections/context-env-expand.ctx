@@ -1,0 +1,66 @@
+\startchapter[title={About \type{context-env-expand.el}}]
+
+The file \type{context-env-expand.el} is an \bold{optional module} for 
+\type{context-lmtx-mode} that provides helper functions to automatically 
+expand \type{\startENV} lines into complete \type{\startENV}...\type{\stopENV} 
+blocks while editing ConTeXt LMTX documents.  
+It is intended to speed up the creation of environments and improve editing efficiency 
+by reducing repetitive typing.
+
+\startsection[title={Purpose}]
+
+The main goals of \type{context-env-expand.el} are:
+
+\startitemize
+\item Automatically insert the matching \type{\stopENV} line after a \type{\startENV}.
+\item Place the cursor inside the environment for immediate content entry.
+\item Provide a \italic{smart TAB} feature that can expand environments or perform normal indentation depending on context.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Defined Keybindings}]
+
+When \type{context-lmtx-mode} is loaded, this module sets:
+
+\startitemize
+\item \type{C-c t} — Expand the current \type{\startENV} line into full environment block (\type{context-expand-start-environment}).
+\item \type{TAB} — \italic{Smart tab} handler: expand \type{\startENV} if the line only contains it, otherwise indent (\type{context-tab-handler}).
+\stopitemize
+
+\stopsection % Defined Keybindings
+
+\startsection[title={Features and Behavior}]
+
+\startitemize
+\item \bold{Automatic environment expansion}:
+  \startitemize
+  \item Detects if the current line begins with \type{\start<name>} where \type{<name>} is an alphabetic identifier.
+  \item Inserts a matching \type{\stop<name>} two lines below.
+  \item Positions the cursor on the blank line between \type{\start} and \type{\stop}.
+  \item Runs \type{indent-according-to-mode} to keep code style consistent.
+  \stopitemize
+
+\item \bold{Smart TAB handling}:
+  \startitemize
+  \item Checks if the current line contains only a \type{\startENV} (possibly followed by whitespace).
+  \item Expands to a full environment block when appropriate.
+  \item Falls back to standard \type{indent-for-tab-command} in other cases.
+  \stopitemize
+\stopitemize
+
+\stopsection % Features and Behavior
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Uses Emacs built-in \type{thing-at-point} library to read the current line.
+\item Matches environment name using \type{string-match} with a regular expression.
+\item Environment name is reused in both \type{\start} and \type{\stop} to ensure correctness.
+\item Keybindings are only set after \type{context-lmtx-mode} has been loaded, using \type{with-eval-after-load}.
+\item Requires no extra dependencies beyond standard GNU Emacs (version~26.1 or later).
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About context-env-expand.el

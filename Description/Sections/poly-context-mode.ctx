@@ -1,0 +1,105 @@
+\startchapter[title={About \type{poly-context-mode.el}}]
+
+The file \type{poly-context-mode.el} is an \bold{optional extension} module for 
+\type{context-lmtx-mode} that enables advanced editing of \italic{embedded code blocks} 
+within \ConTeXt\ documents.
+
+It leverages Emacs \type{polymode} to automatically switch major modes for 
+specific language environments marked with the pattern:
+
+\starttyping
+%%[lang] start
+... your code ...
+%%[lang] stop
+\stoptyping
+
+This allows direct editing of code in its native major mode \quotation{inside} a 
+\ConTeXt\ document, without moving to a separate buffer.
+
+\startsection[title={Purpose}]
+
+The main objectives of \type{poly-context-mode.el} are:
+\startitemize
+\item Enable editing of embedded code (e.g., Lua, Markdown, Python) in its 
+native major mode inside \ConTeXt\ buffers.
+\item Provide \bold{syntax highlighting}, \bold{indentation}, and 
+native editing commands for the embedded language.
+\item Allow easy addition of support for new languages with minimal configuration.
+\stopitemize
+
+\stopsection % Purpose
+
+\startsection[title={Key Features}]
+
+\startitemize
+\item \bold{Block detection:} Automatically recognises any code block delimited by 
+\type{%%[lang] start} and \type{%%[lang] stop}.
+\item \bold{Automatic mode switching:} Activates the correct major mode for the detected language.
+\item \bold{Autoload support:} Loads the required major mode package on demand if not already loaded.
+\item \bold{Simple registration:} Add support for new languages with a single configuration line.
+\stopitemize
+
+\stopsection % Key Features
+
+\startsection[title={Default Language Support}]
+
+By default, \type{poly-context-mode.el} provides built-in support for:
+\startitemize
+\item \type{lua} — handled by \type{lua-mode}
+\item \type{markdown} — handled by \type{markdown-mode}
+\stopitemize
+
+Example usage in a \ConTeXt\ document:
+\starttyping
+%%[lua] start
+print("Hello from Lua")
+%%[lua] stop
+
+%%[markdown] start
+# Markdown Example
+This is **bold** text.
+%%[markdown] stop
+\stoptyping
+
+\stopsection % Default Language Support
+
+\startsection[title={Adding New Languages}]
+
+New embedded languages can be registered using the function \type{poly-context-add-lang}.  
+This should be called before \type{poly-context-mode} is defined.
+
+\starttyping
+(poly-context-add-lang 'python 'python-mode "python.el")
+\stoptyping
+
+\startitemize
+\item \bold{First argument} — a symbol representing the language name (\type{'python}).
+\item \bold{Second argument} — the corresponding major mode symbol (\type{'python-mode}).
+\item \bold{Third argument} (optional) — the file name to autoload if the major mode is not yet loaded.
+\stopitemize
+
+After registration, the following block will be handled by \type{python-mode} automatically:
+\starttyping
+%%[python] start
+print("Hello Python from ConTeXt!")
+%%[python] stop
+\stoptyping
+
+\stopsection % Adding New Languages
+
+\startsection[title={Technical Notes}]
+
+\startitemize
+\item Based on the Emacs \type{polymode} package for multiple major modes in one buffer.
+\item \bold{Host mode:} Always \type{context-lmtx-mode} for the document body.
+\item \bold{Inner modes:} Created dynamically using \type{poly-context-add-lang}.
+\item Block delimiters must follow this exact format:
+\starttyping
+%%[lang] start
+%%[lang] stop
+\stoptyping
+\stopitemize
+
+\stopsection % Technical Notes
+
+\stopchapter % About poly-context-mode.el
